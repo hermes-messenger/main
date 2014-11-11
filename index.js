@@ -13,18 +13,41 @@ function createWindow(canvas){
     ctx.font = "20px Arial";
 }
 
+var messegeToSend = "";
+function sendMessege(event){
+	if (event.keyCode == 13){
+		messegeToSend = document.getElementById('input_text').value;
+		if(messegeToSend != ""){
+			document.getElementById('input_text').value = "";
+			socket.emit('sendMessege', messegeToSend);
+		}
+	} 
+}
+
 socket.on('whateverServerMessege', onBlahBlah);
-socket.on('newUser', onNewUser);
-socket.on('userLeft', onUserLeft);
+socket.on('addMessege', onAddMessage);
 
 function onBlahBlah(dataFromServer){
-	ctx.fillText(dataFromServer.messege + " from " + dataFromServer.name, 50, 100);
+	var name = prompt(dataFromServer.messege, "");
+	if (name != null) {
+	    socket.emit('userInitialized', name);
+	}
+	else{
+		socket.emit('userInitialized', "Anonymous");
+	}
 }
 
-function onNewUser(data){
-	ctx.fillText("Someone new has joined!", 50, 150);
+// Class for Messegs
+function Messege(user, messege){
+	this.user = user;
+	this.messege = messege;
 }
 
-function onUserLeft(data){
-	ctx.fillText("Someone new has joined!", 50, 200);
+var messeges = [];
+function onAddMessage(newMessage){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	messeges.unshift(new Messege(newMessage.user, newMessage.messege));
+	for (var i = messeges.length - 1; i >= 0; i--) {
+		ctx.fillText(messeges[i].user + ": " + messeges[i].messege, 10, .9*canvas.height - i*25);
+	}
 }

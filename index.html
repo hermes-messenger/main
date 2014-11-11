@@ -10,16 +10,17 @@
         * { margin: 0px; padding: 0px; }
         html, body { width: 90%; height: 90%; }
         canvas { display:block; }
+        #input_text {position:fixed;bottom:0px;width:100%; text-align:center;}
     </style>
 </head>
 <body>
-<canvas id="messenger" width="800" height="100"></canvas>
-<div id="container" style="margin-left:auto;margin-right:auto;">
-    <script type="text/javascript">
-        var canvas = document.getElementById("messenger");
-        createWindow(canvas);
-    </script>
-</div>
-
+    <canvas id="messenger" width="800" height="100"></canvas>
+    <div id="container" style="margin-left:auto;margin-right:auto;">
+        <script type="text/javascript">
+            var canvas = document.getElementById("messenger");
+            createWindow(canvas);
+        </script>
+    </div>
+    <input id="input_text" type="text" onkeypress="sendMessege(event);">
 </body>
 </html>

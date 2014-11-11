@@ -17,9 +17,10 @@ io.on('connection', function(socket){
 	/*
 		Put stuff you want to happen when the user joins here
 	*/
+	var username = "";
+
 	var exampleWayToTransferSetsOfData = {
-		name : "Jesse",
-		messege : "This message came from the server"
+		messege : "What's your name?"
 	};
 	socket.emit('whateverServerMessege', exampleWayToTransferSetsOfData);	// This send data to the user who connected
 
@@ -29,13 +30,28 @@ io.on('connection', function(socket){
 	/*
 		Declare your own custom event handlers here
 	*/
+	socket.on('userInitialized', function(userData){
+		username = userData;
+		socket.broadcast.emit("newUser", username);
+	});
+
+	var dataToSend;
+	socket.on('sendMessege', function(newMessege){
+		dataToSend = {
+			user : username,
+			messege : newMessege
+		}
+		socket.emit('addMessege', dataToSend);
+		socket.broadcast.emit('addMessege', dataToSend);
+	});
+
     socket.on('consoleLog', function(toBeLogged){
         console.log(toBeLogged);
     });
 
     socket.on('disconnect', function(){
         // What happens when a user disconnects
-        socket.broadcast.emit("userLeft", null);
+        socket.broadcast.emit("userLeft", username);
     });
 });
 
