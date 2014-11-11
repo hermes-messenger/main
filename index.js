@@ -22,9 +22,15 @@ function User() {
 
 }
 
+function setCanvas(myCanvas){
+	canvas = myCanvas;
+	canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+	ctx = canvas.getContext("2d");
+}
+
 var numUsers;
 function createWindow(){
-    ctx = canvas.getContext("2d");
 
     // create users with default name
     numUsers = 5;
@@ -35,6 +41,31 @@ function createWindow(){
         users[i-1].name = "Player " + i;
     }
     drawSections(numUsers);
+}
+
+function mannyDraw(){
+	ctx.beginPath();
+    ctx.moveTo(canvas.width/4, 0);
+    ctx.lineTo(canvas.width*3/4,canvas.height);
+    
+    ctx.moveTo(0, canvas.height/2);
+    ctx.lineTo(canvas.width,canvas.height/2);
+    
+    ctx.moveTo(canvas.width*3/4, 0);
+    ctx.lineTo(canvas.width/4,canvas.height);
+    ctx.stroke();
+}
+
+var whoToDraw = "";
+function setTodrawMannys(){
+	whoToDraw = "Manny";
+	mannyDraw();
+}
+
+function setTodrawLogans(){
+	whoToDraw = "Logan";
+	createWindow();
+	drawSections(numUsers);
 }
 
 function drawSections(num) {
@@ -128,7 +159,10 @@ function Messege(user, messege){
 var messeges = [];
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	drawSections(numUsers);
+	switch(whoToDraw){
+		case("Manny"): mannyDraw(); break;
+		case("Logan"): drawSections(numUsers); break;
+	}
 	messeges.unshift(new Messege(newMessage.user, newMessage.messege));
 	for (var i = messeges.length - 1; i >= 0; i--) {
 		ctx.fillText(messeges[i].user + ": " + messeges[i].messege, 10, .9*canvas.height - i*25);

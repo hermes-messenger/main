@@ -7,10 +7,23 @@ var http = http_lib.createServer(app);
 var io = io_lib.listen(http);
 
 app.get('/', function(req, res){
+    //res.sendfile('suggestedFix_index.html');
     res.sendfile('index.html');
 });
 
 app.use(express_lib.static(__dirname + '/')); 
+
+var os=require('os');
+var ifaces=os.networkInterfaces();
+var ip = "";
+for (var dev in ifaces) {
+  ifaces[dev].forEach(function(details){
+    if (details.family=='IPv4' && ip == "") {
+      ip = details.address;
+    }
+  });
+}
+var port = 3000;
 
 io.on('connection', function(socket){
 
@@ -55,6 +68,6 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(3000, function(){
-    console.log("listening on port 3000.");
+http.listen(port, function(){
+    console.log("listening on",ip?ip:"localhost","port " + port);
 });
