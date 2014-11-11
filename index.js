@@ -29,18 +29,48 @@ function setCanvas(myCanvas){
 	ctx = canvas.getContext("2d");
 }
 
-var numUsers = 6;
+var numUsers;
 function createUsers(){
 
     // create users with default name
-    numUsers = 5;
+    numUsers = 6;
     users = new Array(numUsers);
+
     for(var i=1; i<=numUsers; i++ )
     {
         users[i-1] = new User();
         users[i-1].name = "Player " + i;
     }
-    drawSections(numUsers);
+    users[0].xpos = canvas.width  /  2;
+    users[0].ypos = canvas.height - 10;
+    users[1].xpos = canvas.width      ;
+    users[1].ypos = canvas.height - 10;
+    users[2].xpos = canvas.width      ;
+    users[2].ypos =                  0;
+    users[3].xpos = canvas.width  /  2;
+    users[3].ypos =                  0;
+    users[4].xpos =                  0;
+    users[4].ypos =                  0;
+    users[5].xpos =                  0;
+    users[5].ypos = canvas.height - 10;
+
+}
+
+function drawUsers(){
+    ctx.font= "30px Verdana";
+
+    ctx.fillStyle = '#FF0000';
+    ctx.fillText(users[0].name, users[0].xpos-30, users[0].ypos-40);
+    ctx.fillStyle = '#00FF00';
+    ctx.fillText(users[1].name, users[1].xpos-130, users[1].ypos-40);
+    ctx.fillStyle = '#0000FF';
+    ctx.fillText(users[2].name, users[2].xpos-130, users[2].ypos+30);
+    ctx.fillStyle = '#CCCC00';
+    ctx.fillText(users[3].name, users[3].xpos -50, users[3].ypos+30);
+    ctx.fillStyle = '#FF0066';
+    ctx.fillText(users[4].name, users[4].xpos, users[4].ypos+30);
+    ctx.fillStyle = '#000000';
+    ctx.fillText(users[5].name, users[5].xpos, users[5].ypos-40);
 }
 
 function mannyDraw(){
@@ -54,11 +84,11 @@ function mannyDraw(){
     ctx.moveTo(canvas.width*3/4, 0);
     ctx.lineTo(canvas.width/4,canvas.height);
     ctx.stroke();
+    drawUsers();
 }
 
-var whoToDraw = "";
 function setTodrawMannys(){
-	whoToDraw = "Manny";
+
 	mannyDraw();
 }
 
