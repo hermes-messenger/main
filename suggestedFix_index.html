@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+    /*----------------------------------------------
+    / This is the layout I made, thought it would be much easier to work with.
+    /
+    /*----------------------------------------------
+    */
+    // Get the canvas element form the page
+var canvas = document.getElementById("myCanvas");
+ 
+/* Rresize the canvas to occupy the full page, 
+   by getting the widow width and height and setting it to canvas*/
+ 
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+ 
+//Done! Enjoy full page canvas!  
+    var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      context.beginPath();
+      context.moveTo(0, 0);
+      context.lineTo(canvas.width,canvas.height);
+      context.stroke();
+      
+      context.beginPath();
+      context.moveTo(canvas.width/2, 0);
+      context.lineTo(canvas.width/2,canvas.height);
+      context.stroke();
+      
+      context.beginPath();
+      context.moveTo(0,canvas.height);
+      context.lineTo(canvas.width,0);
+      context.stroke();
+      
+    </script>
+  </body>
+</html> 
