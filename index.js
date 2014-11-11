@@ -126,22 +126,23 @@ function drawSections(num) {
     ctx.stroke();
 }
 
-var messegeToSend = "";
-function sendMessege(event){
+var MessageToSend = "";
+function sendMessage(event){
 	if (event.keyCode == 13){
-		messegeToSend = document.getElementById('input_text').value;
-		if(messegeToSend != ""){
+        console.log('send');
+		MessageToSend = document.getElementById('input_text').value;
+		if(MessageToSend != ""){
 			document.getElementById('input_text').value = "";
-			socket.emit('sendMessege', messegeToSend);
+			socket.emit('sendMessage', MessageToSend);
 		}
 	} 
 }
 
-socket.on('whateverServerMessege', onBlahBlah);
-socket.on('addMessege', onAddMessage);
+socket.on('whateverServerMessage', onBlahBlah);
+socket.on('addMessage', onAddMessage);
 
 function onBlahBlah(dataFromServer){
-	var name = prompt(dataFromServer.messege, "");
+	var name = prompt(dataFromServer.Message, "");
 	if (name != null) {
 	    socket.emit('userInitialized', name);
 	}
@@ -151,20 +152,20 @@ function onBlahBlah(dataFromServer){
 }
 
 // Class for Messegs
-function Messege(user, messege){
+function Message(user, Message){
 	this.user = user;
-	this.messege = messege;
+	this.Message = Message;
 }
 
-var messeges = [];
+var Messages = [];
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	switch(whoToDraw){
 		case("Manny"): mannyDraw(); break;
 		case("Logan"): drawSections(numUsers); break;
 	}
-	messeges.unshift(new Messege(newMessage.user, newMessage.messege));
-	for (var i = messeges.length - 1; i >= 0; i--) {
-		ctx.fillText(messeges[i].user + ": " + messeges[i].messege, 10, .9*canvas.height - i*25);
+	Messages.unshift(new Message(newMessage.user, newMessage.Message));
+	for (var i = Messages.length - 1; i >= 0; i--) {
+		ctx.fillText(Messages[i].user + ": " + Messages[i].Message, 10, .9*canvas.height - i*25);
 	}
 }
