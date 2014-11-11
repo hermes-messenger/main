@@ -5,20 +5,15 @@
     <title>Herme's Messenger</title>
     <script type="text/javascript" src="index.js"></script>
 
-    <style type="text/css">
-        body {
-            margin: auto;
-        }
-    </style>
 </head>
 <body>
-<canvas id="messenger" width="800" height="100"></canvas>
-<div id="container" style="margin-left:auto;margin-right:auto;">
+<canvas id="messenger"></canvas>
     <script type="text/javascript">
-        var canvas = document.getElementById("messenger");
+        canvas = document.getElementById("messenger");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         createWindow(canvas);
     </script>
-</div>
 
 </body>
 </html>
