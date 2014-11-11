@@ -1,15 +1,17 @@
 /**
- * Created by Logan on 2014-11-10.
- */
+* Created by Logan on 2014-11-10.
+*/
+
 /*
     Global variables
     These are needed everywhere, so it is easier to make them
     global than pass them around
- */
+*/
 var ctx;
 var canvas;
 var radius;
 var users;
+var socket = io();
 
 function User() {
     // This stores the users name, and the position of the center of their
@@ -33,12 +35,11 @@ function createWindow(){
     drawSections(numUsers);
 }
 
-function drawSections(num)
-{
-    var centerx = canvas.width/2;
-    var centery = canvas.height/2;
+function drawSections(num) {
+    var centerx = canvas.width / 2;
+    var centery = canvas.height / 2;
     ctx.moveTo(centerx, centery);
-    radius = canvas.width < canvas.height ? canvas.width/2 : canvas.height/2;
+    radius = canvas.width < canvas.height ? canvas.width / 2 : canvas.height / 2;
 
     // Ok so this is not working. We should start with xpos = centerx
     // and ypos = centery, but for some reason it draws lines only up
@@ -48,43 +49,63 @@ function drawSections(num)
     // happens.
     // The arc coordinates formula is from
     // http://mathforum.org/library/drmath/view/55327.html
-    users[0].xpos = centerx- radius;
+    users[0].xpos = centerx - radius;
     users[0].ypos = centery;
 
 
-    ctx.lineTo(users[0].xpos,users[0].ypos); ctx.stroke();
-    var theta = 2*Math.PI/num;
+    ctx.lineTo(users[0].xpos, users[0].ypos);
+    ctx.stroke();
+    var theta = 2 * Math.PI / num;
     var x = users[0].xpos, y = users[0].ypos;
-    for(var i = 0; i< num; i++)
-    {
-        ctx.moveTo(centerx,centery);
-        var B = Math.acos((users[i].xpos-centerx)/radius);
-        if( isNaN(B) ) throw "NAN";
-        console.log("User "+ i + " xpos " + x);
-        x = centerx + radius*Math.cos(B-theta/2);
-        y = centery + radius*Math.sin(B-theta/2);
-        ctx.lineTo( x , y );  ctx.strokeStyle = '#ff4444'; ctx.stroke();
-        ctx.moveTo(centerx,centery);
+    for (var i = 0; i < num; i++) {
+        ctx.moveTo(centerx, centery);
+        var B = Math.acos((users[i].xpos - centerx) / radius);
+        if (isNaN(B)) throw "NAN";
+        console.log("User " + i + " xpos " + x);
+        x = centerx + radius * Math.cos(B - theta / 2);
+        y = centery + radius * Math.sin(B - theta / 2);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#ff4444';
+        ctx.stroke();
+        ctx.moveTo(centerx, centery);
         console.log("Second x " + x);
         B = Math.acos((x - centerx) / radius);
-        if( isNaN(B) ) throw "NAN";
+        if (isNaN(B)) throw "NAN";
 
-        x = centerx + radius*Math.cos(B-theta/2);
-        y = centery + radius*Math.sin(B-theta/2);
-        ctx.lineTo(x, y);ctx.strokeStyle = '#000000'; ctx.stroke();
+        x = centerx + radius * Math.cos(B - theta / 2);
+        y = centery + radius * Math.sin(B - theta / 2);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#000000';
+        ctx.stroke();
 
-        if(i < num-1)
-        {
-            users[i+1].xpos = x;
-            users[i+1].ypos = y;
+        if (i < num - 1) {
+            users[i + 1].xpos = x;
+            users[i + 1].ypos = y;
         }
 
     }
-    for( var i in users )
-    {
-        console.log(users[i].name + "," + users[i].xpos + ", "+ users[i].ypos);
+    for (var i in users) {
+        console.log(users[i].name + "," + users[i].xpos + ", " + users[i].ypos);
     }
 
     ctx.beginPath();
-    ctx.arc(centerx,centery,radius,0,Math.PI*2); ctx.stroke();
+    ctx.arc(centerx, centery, radius, 0, Math.PI * 2);
+    ctx.stroke();
+}
+
+socket.on('whateverServerMessege', onBlahBlah);
+socket.on('newUser', onNewUser);
+socket.on('userLeft', onUserLeft);
+
+function onBlahBlah(dataFromServer){
+	ctx.fillText(dataFromServer.messege + " from " + dataFromServer.name, 50, 100);
+}
+
+function onNewUser(data){
+	ctx.fillText("Someone new has joined!", 50, 150);
+}
+
+function onUserLeft(data){
+	ctx.fillText("Someone new has joined!", 50, 200);
+
 }
