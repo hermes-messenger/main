@@ -118,17 +118,18 @@ function onBlahBlah(dataFromServer){
 }
 
 // Class for Messejs
-function Message(user, Message){
+function Message(user, message){
 	this.user = user;
-	this.Message = Message;
+	this.message = message;
 }
 
 var Messages = [];
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     mannyDraw();
-	Messages.unshift(new Message(newMessage.user, newMessage.Message));
+	Messages.unshift(new Message(newMessage.user, newMessage.message));
 	for (var i = Messages.length - 1; i >= 0; i--) {
-		ctx.fillText(Messages[i].user + ": " + Messages[i].Message, 10, .9*canvas.height - i*25);
+        console.log(Messages[i].user + ": " + Messages[i].message);
+		ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, .9*canvas.height - i*25);
 	}
 }
