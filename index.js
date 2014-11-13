@@ -54,6 +54,10 @@ function createUsers(){
     users[5].xpos =                  0;
     users[5].ypos = canvas.height - 10;
 
+createUserContainers()
+
+
+
 }
 
 function drawUsers(){
@@ -140,7 +144,138 @@ function onAddMessage(newMessage){
             // Just testing movements...
             var c=0;
             // select user one's triangle border and on click, animate 
-    $(".user1 > .triangle-border").click(function(){
+    $(".user1").children().click(function(){
         $(this).stop().animate({left: ++c%2*100 }, 'fast');
     });  
         }
+
+        function createBubble(user, message,id)
+        {
+            switch(user) {
+                case 1:
+                    $('.user'+user).children().animate({left: '-='+ 0, top: '-='+ 40},'fast');
+                    break;
+                case 2:
+                    $('.user'+user).children().animate({left: '-='+ 40, top: '-='+ 40},'fast');
+                    break;
+                case 3:
+                    $('.user'+user).children().animate({left: '-='+ 40, top: '+='+ 40},'fast');
+                    break;
+                case 4:
+                    $('.user'+user).children().animate({left: '+='+ 0, top: '+='+ 40},'fast');
+                    break;
+                case 5:
+                    $('.user'+user).children().animate({left: '+='+ 40, top: '+='+ 40},'fast');
+                    break;
+                case 6:
+                    $('.user'+user).children().animate({left: '+='+ 40, top: '-='+ 40},'fast');
+                    break;
+                default:
+                     $('.user'+user).children().animate({left: '+='+ 40, top: '+='+40},'fast');
+}
+
+            if(user==3 || user==4 || user==5){
+                $('<p/>', {
+                "class": 'triangle-border top' ,
+                id: id,
+                text: message,
+            }).appendTo('.user'+user);
+            }
+            else
+            {
+            $('<p/>', {
+                "class": 'triangle-border' ,
+                id: id,
+                text: message,
+            }).appendTo('.user'+user);
+        }
+
+
+        }
+
+function createUserContainers()
+{
+
+
+        $('<div/>', {
+        "class": 'user1',
+            }).appendTo('#body');
+
+        $('.user1').css({ 
+    position: "absolute",
+    top: canvas.height*1/2, 
+    left: canvas.width*1/3,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+    
+        $('<div/>', {
+        "class": 'user2',
+            }).appendTo('#body');
+
+        $('.user2').css({ 
+    position: "absolute",
+    top: canvas.height*1/2, 
+    left: canvas.width*2/3,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+
+    
+        $('<div/>', {
+        "class": 'user3',
+            }).appendTo('#body');
+
+        $('.user3').css({ 
+    position: "absolute",
+    top: 0, 
+    left: canvas.width*2/3,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+
+    
+        $('<div/>', {
+        "class": 'user4',
+            }).appendTo('#body');
+
+        $('.user4').css({ 
+    position: "absolute",
+    top: 0, 
+    left: canvas.width*1/3,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+
+    
+        $('<div/>', {
+        "class": 'user5',
+            }).appendTo('#body');
+
+        $('.user5').css({ 
+    position: "absolute",
+    top: 0, 
+    left: 0,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+
+    
+        $('<div/>', {
+        "class": 'user6',
+            }).appendTo('#body');
+
+        $('.user6').css({ 
+    position: "absolute",
+    top: canvas.height*1/2, 
+    left: 0,
+    width: canvas.width*1/3,
+    height: users[0].ypos/2
+}).appendTo('body');
+
+}
