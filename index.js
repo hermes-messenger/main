@@ -133,3 +133,14 @@ function onAddMessage(newMessage){
 		ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, .9*canvas.height - i*25);
 	}
 }
+
+
+// Initialize Events.
+        function LoadEvents() {
+            // Just testing movements...
+            var c=0;
+            // select user one's triangle border and on click, animate 
+    $(".user1 > .triangle-border").click(function(){
+        $(this).stop().animate({left: ++c%2*100 }, 'fast');
+    });  
+        }
