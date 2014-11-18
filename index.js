@@ -7,6 +7,7 @@
     These are needed everywhere, so it is easier to make them
     global than pass them around
 */
+
 var ctx;
 var canvas;
 var radius;
@@ -95,7 +96,6 @@ function setTodrawMannys(){
 var MessageToSend = "";
 function sendMessage(event){
 	if (event.keyCode == 13){
-        console.log('send');
 		MessageToSend = document.getElementById('input_text').value;
 		if(MessageToSend != ""){
 			document.getElementById('input_text').value = "";
