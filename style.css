@@ -2,41 +2,43 @@
         html, body { width: 90%; height: 90%; }
         canvas { display:block; }
 
+
+
 .user1 > .triangle-border {
   position: absolute;
-    top: 20%;
-    left: 45%;
+    top: 65%;
+    left: 33%;
     /* overrides the default color ... still working on it */
     border:5px solid #9a8f00;
 }
 .user2 > .triangle-border {
   position: absolute;
-    top: 80%;
-    left: 45%;
+    top: 65%;
+    left: 33%;
     border:5px solid #003749;
 }
-.user3 > .triangle-border {
+.user3 > .triangle-border.top {
   position: absolute;
-    top: 50%;
-    left: 15%;
+    top: 10%;
+    left: 33%;
     border:5px solid #9f8f10;
 }
-.user4 > .triangle-border {
+.user4 > .triangle-border.top {
   position: absolute;
-    top: 50%;
-    left: 75%;
+    top: 10%;
+    left: 33%;
     border:5px solid #6a8f00;
 }
-.user5 > .triangle-border {
+.user5 > .triangle-border.top {
   position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 10%;
+    left: 33%;
     border:5px solid #8a5f00;
 }
 .user6 > .triangle-border {
   position: absolute;
-    top: 75%;
-    left: 65%;
+    top: 65%;
+    left: 33%;
     border:5px solid #6a3d00;
 }
 .user7 > .triangle-border {

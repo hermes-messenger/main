@@ -33,9 +33,9 @@ io.on('connection', function(socket){
 	var username = "";
 
 	var exampleWayToTransferSetsOfData = {
-		messege : "What's your name?"
+		message : "What's your name?"
 	};
-	socket.emit('whateverServerMessege', exampleWayToTransferSetsOfData);	// This send data to the user who connected
+	socket.emit('whateverServerMessage', exampleWayToTransferSetsOfData);	// This send data to the user who connected
 
 	socket.broadcast.emit("newUser", null);	// Sends to all other users connected to the server
 
@@ -49,13 +49,13 @@ io.on('connection', function(socket){
 	});
 
 	var dataToSend;
-	socket.on('sendMessege', function(newMessege){
+	socket.on('sendMessage', function(newMessage){
 		dataToSend = {
 			user : username,
-			messege : newMessege
+			message : newMessage
 		}
-		socket.emit('addMessege', dataToSend);
-		socket.broadcast.emit('addMessege', dataToSend);
+		socket.emit('addMessage', dataToSend);
+		socket.broadcast.emit('addMessage', dataToSend);
 	});
 
     socket.on('consoleLog', function(toBeLogged){
