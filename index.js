@@ -111,8 +111,9 @@ function sendMessage(event){
 socket.on('whateverServerMessage', onBlahBlah);
 socket.on('addMessage', onAddMessage);
 
+var name = "";
 function onBlahBlah(dataFromServer){
-	var name = prompt(dataFromServer.Message, "");
+	name = prompt(dataFromServer.Message, "");
 	if (name != null) {
 	    socket.emit('userInitialized', name);
 	}
@@ -128,14 +129,46 @@ function Message(user, message){
 }
 
 var Messages = [];
+var name2 = "", name3 = "", name4 = "", name5 = "", name6 = "";
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+    Messages.unshift(new Message(newMessage.user, newMessage.message));
+    if(newMessage.user == name){
+        users[0].name = newMessage.user;
+        createBubble(1,newMessage.message,789);
+    }
+    else if(name2 == "" || name2 == newMessage.user){
+        users[1].name = newMessage.user;
+        name2 = newMessage.user;
+        createBubble(2,newMessage.message,789);
+    }
+    else if(name3 == "" || name3 == newMessage.user){
+        users[2].name = newMessage.user;
+        name3 = newMessage.user;
+        createBubble(3,newMessage.message,789);
+    }
+    else if(name4 == "" || name4 == newMessage.user){
+        users[3].name = newMessage.user;
+        name4 = newMessage.user;
+        createBubble(4,newMessage.message,789);
+    }
+    else if(name5 == "" || name5 == newMessage.user){
+        users[4].name = newMessage.user;
+        name5 = newMessage.user;
+        createBubble(5,newMessage.message,789);
+    }
+    else if(name6 == "" || name6 == newMessage.user){
+        users[5].name = newMessage.user;
+        name6 = newMessage.user;
+        createBubble(6,newMessage.message,789);
+    }
     mannyDraw();
-	Messages.unshift(new Message(newMessage.user, newMessage.message));
-	for (var i = Messages.length - 1; i >= 0; i--) {
+
+
+	/*for (var i = Messages.length - 1; i >= 0; i--) {
         console.log(Messages[i].user + ": " + Messages[i].message);
 		ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, .9*canvas.height - i*25);
-	}
+	}*/
 }
 
 
