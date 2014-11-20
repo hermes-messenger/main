@@ -90,12 +90,31 @@ function mannyDraw(){
     ctx.lineTo(canvas.width/4,canvas.height);
     ctx.stroke();
     drawUsers();
+    drawHistoryLines();
+}
+function drawHistoryLines()
+{
+    if(!Messages[0])
+        return;
+    var el = $("#"+Messages[0].element);
+    var offset = el.offset();
+    if(!offset)
+    {
+        console.log('no offset');
+        return;
+    }
+    ctx.beginPath();
+    ctx.moveTo(offset.left, offset.top);
+    for(var m in Messages)
+    {
+        el = $("#"+ m.element);
+        ctx.lineTo(offset.left, offset.top);
+        ctx.moveTo(offset.left, offset.top);
+        console.log(m.element);
+    }
+    ctx.stroke();
 }
 
-function setTodrawMannys(){
-
-	mannyDraw();
-}
 
 var MessageToSend = "";
 function sendMessage(event){
@@ -126,41 +145,44 @@ function onBlahBlah(dataFromServer){
 function Message(user, message){
 	this.user = user;
 	this.message = message;
+    this.element = null;
 }
 
 var Messages = [];
+var id = 0;
 var name2 = "", name3 = "", name4 = "", name5 = "", name6 = "";
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     Messages.unshift(new Message(newMessage.user, newMessage.message));
+    newMessage.element = id;
     if(newMessage.user == name){
         users[0].name = newMessage.user;
-        createBubble(1,newMessage.message,789);
+        createBubble(1,newMessage.message,id++);
     }
     else if(name2 == "" || name2 == newMessage.user){
         users[1].name = newMessage.user;
         name2 = newMessage.user;
-        createBubble(2,newMessage.message,789);
+        createBubble(2,newMessage.message,id++);
     }
     else if(name3 == "" || name3 == newMessage.user){
         users[2].name = newMessage.user;
         name3 = newMessage.user;
-        createBubble(3,newMessage.message,789);
+        createBubble(3,newMessage.message,id++);
     }
     else if(name4 == "" || name4 == newMessage.user){
         users[3].name = newMessage.user;
         name4 = newMessage.user;
-        createBubble(4,newMessage.message,789);
+        createBubble(4,newMessage.message,id++);
     }
     else if(name5 == "" || name5 == newMessage.user){
         users[4].name = newMessage.user;
         name5 = newMessage.user;
-        createBubble(5,newMessage.message,789);
+        createBubble(5,newMessage.message,id++);
     }
     else if(name6 == "" || name6 == newMessage.user){
         users[5].name = newMessage.user;
         name6 = newMessage.user;
-        createBubble(6,newMessage.message,789);
+        createBubble(6,newMessage.message,id++);
     }
     mannyDraw();
 
@@ -241,7 +263,7 @@ function onAddMessage(newMessage){
 
 function fadeChild()
 {
-    $(this).fadeTo(0.25,0.5*$(this).css('opacity'));
+    $(this).fadeTo(0.25,$(this).css('opacity')-0.25);
 
 }
 
