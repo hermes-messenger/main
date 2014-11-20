@@ -187,25 +187,38 @@ function onAddMessage(newMessage){
             switch(user) {
                 case 1:
                     $('.user'+user).children().animate({left: '-='+ 0, top: '-='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
                     break;
                 case 2:
                     $('.user'+user).children().animate({left: '-='+ 40, top: '-='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
+
                     break;
                 case 3:
                     $('.user'+user).children().animate({left: '-='+ 40, top: '+='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
+
                     break;
                 case 4:
                     $('.user'+user).children().animate({left: '+='+ 0, top: '+='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
+
                     break;
                 case 5:
                     $('.user'+user).children().animate({left: '+='+ 40, top: '+='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
+
                     break;
                 case 6:
                     $('.user'+user).children().animate({left: '+='+ 40, top: '-='+ 40},'fast');
+                    $('.user'+user).children().each(fadeChild);
+
                     break;
                 default:
                      $('.user'+user).children().animate({left: '+='+ 40, top: '+='+40},'fast');
-}
+                     $('.user'+user).children().each(fadeChild);
+
+            }
 
             if(user==3 || user==4 || user==5){
                 $('<p/>', {
@@ -225,6 +238,12 @@ function onAddMessage(newMessage){
 
 
         }
+
+function fadeChild()
+{
+    $(this).fadeTo(0.25,0.5*$(this).css('opacity'));
+
+}
 
 function createUserContainers()
 {
