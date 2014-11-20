@@ -94,8 +94,10 @@ function mannyDraw(){
 }
 function drawHistoryLines()
 {
-    if(!Messages[0])
+    if(!Messages[0]) {
         return;
+    }
+    console.log(Messages[0]);
     var el = $("#"+Messages[0].element);
     var offset = el.offset();
     if(!offset)
@@ -107,12 +109,16 @@ function drawHistoryLines()
     ctx.moveTo(offset.left, offset.top);
     for(var m in Messages)
     {
-        el = $("#"+ m.element);
+
+        console.log(m+','+id+','+Messages[m].element);
+
+        el = $("#"+ Messages[m].element);
+        offset = el.offset();
         ctx.lineTo(offset.left, offset.top);
         ctx.moveTo(offset.left, offset.top);
-        console.log(m.element);
     }
     ctx.stroke();
+    console.log('drawing');
 }
 
 
@@ -142,10 +148,10 @@ function onBlahBlah(dataFromServer){
 }
 
 // Class for Messejs
-function Message(user, message){
+function Message(user, message, id){
 	this.user = user;
 	this.message = message;
-    this.element = null;
+    this.element = id;
 }
 
 var Messages = [];
@@ -153,36 +159,35 @@ var id = 0;
 var name2 = "", name3 = "", name4 = "", name5 = "", name6 = "";
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-    Messages.unshift(new Message(newMessage.user, newMessage.message));
-    newMessage.element = id;
+    Messages.unshift(new Message(newMessage.user, newMessage.message,++id));
     if(newMessage.user == name){
         users[0].name = newMessage.user;
-        createBubble(1,newMessage.message,id++);
+        createBubble(1,newMessage.message,id);
     }
     else if(name2 == "" || name2 == newMessage.user){
         users[1].name = newMessage.user;
         name2 = newMessage.user;
-        createBubble(2,newMessage.message,id++);
+        createBubble(2,newMessage.message,id);
     }
     else if(name3 == "" || name3 == newMessage.user){
         users[2].name = newMessage.user;
         name3 = newMessage.user;
-        createBubble(3,newMessage.message,id++);
+        createBubble(3,newMessage.message,id);
     }
     else if(name4 == "" || name4 == newMessage.user){
         users[3].name = newMessage.user;
         name4 = newMessage.user;
-        createBubble(4,newMessage.message,id++);
+        createBubble(4,newMessage.message,id);
     }
     else if(name5 == "" || name5 == newMessage.user){
         users[4].name = newMessage.user;
         name5 = newMessage.user;
-        createBubble(5,newMessage.message,id++);
+        createBubble(5,newMessage.message,id);
     }
     else if(name6 == "" || name6 == newMessage.user){
         users[5].name = newMessage.user;
         name6 = newMessage.user;
-        createBubble(6,newMessage.message,id++);
+        createBubble(6,newMessage.message,id);
     }
     mannyDraw();
 
@@ -208,37 +213,37 @@ function onAddMessage(newMessage){
         {
             switch(user) {
                 case 1:
-                    $('.user'+user).children().animate({left: '-='+ 0, top: '-='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+                    //$('.user'+user).children().each(fadeChild);
                     break;
                 case 2:
-                    $('.user'+user).children().animate({left: '-='+ 40, top: '-='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+                    //$('.user'+user).children().each(fadeChild);
 
                     break;
                 case 3:
-                    $('.user'+user).children().animate({left: '-='+ 40, top: '+='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+                   // $('.user'+user).children().each(fadeChild);
 
                     break;
                 case 4:
-                    $('.user'+user).children().animate({left: '+='+ 0, top: '+='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+                   // $('.user'+user).children().each(fadeChild);
 
                     break;
                 case 5:
-                    $('.user'+user).children().animate({left: '+='+ 40, top: '+='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+                   // $('.user'+user).children().each(fadeChild);
 
                     break;
                 case 6:
-                    $('.user'+user).children().animate({left: '+='+ 40, top: '-='+ 40},'fast');
-                    $('.user'+user).children().each(fadeChild);
+                    $('.user'+user).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+                  //  $('.user'+user).children().each(fadeChild);
 
                     break;
                 default:
-                     $('.user'+user).children().animate({left: '+='+ 40, top: '+='+40},'fast');
-                     $('.user'+user).children().each(fadeChild);
+                     $('.user'+user).children().animate({left: '+='+ 40, top: '+='+40, opacity:"-=0.2"},'fast');
+                   //  $('.user'+user).children().each(fadeChild);
 
             }
 
