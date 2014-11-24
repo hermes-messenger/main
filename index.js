@@ -90,7 +90,7 @@ function mannyDraw(){
     ctx.lineTo(canvas.width/4,canvas.height);
     ctx.stroke();
     drawUsers();
-    drawHistoryLines();
+   // drawHistoryLines();
 }
 function drawHistoryLines()
 {
