@@ -205,34 +205,41 @@ function onAddMessage(newMessage){
     });  
         }
 
-        function createBubble(user, message,id)
-        {
+function createBubble(user, message,id)
+{
 
-            $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+    $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
 
-            if(user==3 || user==4 || user==5){
-                $('<p/>', {
-                "class": 'triangle-border top' ,
-                id: id,
-                text: message,
-            }).appendTo('.user'+user);
-            }
-            else
-            {
-            $('<p/>', {
-                "class": 'triangle-border' ,
-                id: id,
-                text: message,
-            }).appendTo('.user'+user);
-        }
+    if(user==3 || user==4 || user==5){
+        $('<p/>', {
+        "class": 'triangle-border top' ,
+        id: id,
+        text: message
+        },
+        onclick="replyTo("+id+");").appendTo('.user'+user);
+    }
+    else
+    {
+    $('<p/>', {
+        "class": 'triangle-border' ,
+        id: id,
+        text: message
+        },
+        onclick="replyTo("+id+");").appendTo('.user'+user);
+    }
 
 
-        }
+}
+
+function replyTo(id)
+{
+
+}
 
 function fadeChild()
 {
