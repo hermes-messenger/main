@@ -117,16 +117,23 @@ function drawHistoryLines()
 }
 
 
-var MessageToSend = "";
+function MessageToSend(message){
+    this.message = message;
+    this.id = null;
+    this.target = null;
+}
+
+
 function sendMessage(event){
 	if (event.keyCode == 13){
-		MessageToSend.message = document.getElementById('input_text').value;
-        MessageToSend.id=null;
-        MessageToSend.target = null;
+		var message = new MessageToSend(document.getElementById('input_text').value);
+        message.id=null;
+        message.target = null;
 
-		if(MessageToSend.message != ""){
+		if(message.message != ""){
 			document.getElementById('input_text').value = "";
-			socket.emit('sendMessage', MessageToSend);
+			socket.emit('sendMessage', message);
+            console.log('sent');
 		}
 	} 
 }
@@ -167,34 +174,34 @@ function onAddMessage(newMessage){
     if(!inShittyMode){
         if(newMessage.user == name){
                 users[0].name = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(1,newMessage.message,id);
             else
-                createReplyBubble(1, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(1, newMessage.target, newMessage.message, newMessage.reply, id);
         }
         else if(name2 == "" || name2 == newMessage.user){
                 users[1].name = newMessage.user;
                 name2 = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(2,newMessage.message,id);
             else
-                createReplyBubble(2, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(2, newMessage.target, newMessage.message, newMessage.reply, id);
         }
         else if(name3 == "" || name3 == newMessage.user){
                 users[2].name = newMessage.user;
                 name3 = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(3,newMessage.message,id);
             else
-                createReplyBubble(3, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(3, newMessage.target, newMessage.message, newMessage.reply, id);
         }
         else if(name4 == "" || name4 == newMessage.user){
             users[3].name = newMessage.user;
             name4 = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(4,newMessage.message,id);
             else
-                createReplyBubble(4, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(4, newMessage.target, newMessage.message, newMessage.reply, id);
         }
         else if(name5 == "" || name5 == newMessage.user){
             users[4].name = newMessage.user;
@@ -207,10 +214,10 @@ function onAddMessage(newMessage){
         else if(name6 == "" || name6 == newMessage.user){
             users[5].name = newMessage.user;
             name6 = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(6,newMessage.message,id);
             else
-                createReplyBubble(6, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(6, newMessage.target, newMessage.message, newMessage.reply, id);
         }
         mannyDraw();
     }
@@ -235,7 +242,6 @@ function onAddMessage(newMessage){
                 ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, (.90*canvas.height - i*40));
             }
     	}
->>>>>>> origin/master
     }
 }
 
@@ -345,19 +351,20 @@ function createBubble(user, message,id)
         }
         ).appendTo('.user'+user);
     }
-    console.log('created message: '+message);
 
 
 }
     // wrapper
     function replyTo(id,user)
     {
-        MessageToSend.message = document.getElementById('input_text').value;
-        MessageToSend.id=id;
-        MessageToSend.target=user;
-        if(MessageToSend.message != ""){
+        var message = new MessageToSend(document.getElementById('input_text').value);
+        message.id=id;
+        message.target = user;
+
+        if(message.message != ""){
             document.getElementById('input_text').value = "";
-            socket.emit('sendMessage', MessageToSend);
+            socket.emit('sendMessage', message);
+            console.log('sent');
         }
 
     }
