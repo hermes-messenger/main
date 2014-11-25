@@ -8,7 +8,7 @@ var io = io_lib.listen(http);
 
 app.get('/', function(req, res){
     //res.sendfile('suggestedFix_index.html');
-    res.sendfile('index.html');
+    res.sendfile('shitty.html');
 });
 
 app.use(express_lib.static(__dirname + '/')); 
@@ -52,9 +52,7 @@ io.on('connection', function(socket){
 	socket.on('sendMessage', function(newMessage){
 		dataToSend = {
 			user : username,
-			message : newMessage.message,
-            reply : newMessage.id,
-            target : newMessage.target
+			message : newMessage
 		}
 		socket.emit('addMessage', dataToSend);
 		socket.broadcast.emit('addMessage', dataToSend);

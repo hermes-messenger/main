@@ -28,6 +28,7 @@ function setCanvas(myCanvas){
 	canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 	ctx = canvas.getContext("2d");
+    ctx.font= "30px Verdana";
 }
 
 var numUsers;
@@ -62,8 +63,6 @@ createUserContainers()
 }
 
 function drawUsers(){
-    ctx.font= "30px Verdana";
-
     ctx.fillStyle = '#FF0000';
     ctx.fillText(users[0].name, users[0].xpos-30, users[0].ypos-40);
     ctx.fillStyle = '#00FF00';
@@ -121,8 +120,11 @@ function drawHistoryLines()
 var MessageToSend = "";
 function sendMessage(event){
 	if (event.keyCode == 13){
-		MessageToSend = document.getElementById('input_text').value;
-		if(MessageToSend != ""){
+		MessageToSend.message = document.getElementById('input_text').value;
+        MessageToSend.id=null;
+        MessageToSend.target = null;
+
+		if(MessageToSend.message != ""){
 			document.getElementById('input_text').value = "";
 			socket.emit('sendMessage', MessageToSend);
 		}
@@ -134,13 +136,18 @@ socket.on('addMessage', onAddMessage);
 
 var name = "";
 function onBlahBlah(dataFromServer){
-	name = prompt(dataFromServer.Message, "");
+	name = prompt(dataFromServer.message, "");
 	if (name != null) {
 	    socket.emit('userInitialized', name);
 	}
 	else{
 		socket.emit('userInitialized', "Anonymous");
 	}
+}
+
+var inShittyMode = false;
+function setInShittyMode(){
+    inShittyMode = true;
 }
 
 // Class for Messejs
@@ -156,42 +163,117 @@ var name2 = "", name3 = "", name4 = "", name5 = "", name6 = "";
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
     Messages.unshift(new Message(newMessage.user, newMessage.message,++id));
-    if(newMessage.user == name){
-        users[0].name = newMessage.user;
-        createBubble(1,newMessage.message,id);
+
+    if(!inShittyMode){
+        if(newMessage.user == name){
+                users[0].name = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(1,newMessage.message,id);
+            else
+                createReplyBubble(1, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        else if(name2 == "" || name2 == newMessage.user){
+                users[1].name = newMessage.user;
+                name2 = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(2,newMessage.message,id);
+            else
+                createReplyBubble(2, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        else if(name3 == "" || name3 == newMessage.user){
+                users[2].name = newMessage.user;
+                name3 = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(3,newMessage.message,id);
+            else
+                createReplyBubble(3, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        else if(name4 == "" || name4 == newMessage.user){
+            users[3].name = newMessage.user;
+            name4 = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(4,newMessage.message,id);
+            else
+                createReplyBubble(4, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        else if(name5 == "" || name5 == newMessage.user){
+            users[4].name = newMessage.user;
+            name5 = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(5,newMessage.message,id);
+            else
+                createReplyBubble(5, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        else if(name6 == "" || name6 == newMessage.user){
+            users[5].name = newMessage.user;
+            name6 = newMessage.user;
+            if(newMessage.id == null)
+                createBubble(6,newMessage.message,id);
+            else
+                createReplyBubble(6, newMessage.target, newMessage.message, newMessage.id, id);
+        }
+        mannyDraw();
     }
-    else if(name2 == "" || name2 == newMessage.user){
-        users[1].name = newMessage.user;
-        name2 = newMessage.user;
-        createBubble(2,newMessage.message,id);
+    else{
+    	for (var i = Messages.length - 1; i >= 0; i--) {
+            if(Messages[i].user == name){
+                ctx.beginPath();
+                ctx.rect(0, (.85*canvas.height - i*40)+7, canvas.width, -40);
+                ctx.fillStyle = 'green';
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = 'white';
+                ctx.fillText(Messages[i].message, 10, (.85*canvas.height - i*40));
+            }
+            else{
+                ctx.beginPath();
+                ctx.rect(0, (.85*canvas.height - i*40)+7, canvas.width, -40);
+                ctx.fillStyle = '#aaaaaa';
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = 'black';
+                ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, (.85*canvas.height - i*40));
+            }
+    	}
+>>>>>>> origin/master
     }
-    else if(name3 == "" || name3 == newMessage.user){
-        users[2].name = newMessage.user;
-        name3 = newMessage.user;
-        createBubble(3,newMessage.message,id);
-    }
-    else if(name4 == "" || name4 == newMessage.user){
-        users[3].name = newMessage.user;
-        name4 = newMessage.user;
-        createBubble(4,newMessage.message,id);
-    }
-    else if(name5 == "" || name5 == newMessage.user){
-        users[4].name = newMessage.user;
-        name5 = newMessage.user;
-        createBubble(5,newMessage.message,id);
-    }
-    else if(name6 == "" || name6 == newMessage.user){
-        users[5].name = newMessage.user;
-        name6 = newMessage.user;
-        createBubble(6,newMessage.message,id);
-    }
-    mannyDraw();
+}
+
+function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
+    fitWidth = fitWidth || 0;
+    lineHeight = lineHeight || 20;
+
+    var currentLine = 0;
+
+    var lines = text.split(/\r\n|\r|\n/);
+    for (var line = 0; line < lines.length; line++) {
 
 
-	/*for (var i = Messages.length - 1; i >= 0; i--) {
-        console.log(Messages[i].user + ": " + Messages[i].message);
-		ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, .9*canvas.height - i*25);
-	}*/
+        if (fitWidth <= 0) {
+            context.fillText(lines[line], x, y + (lineHeight * currentLine));
+        } else {
+            var words = lines[line].split(' ');
+            var idx = 1;
+            while (words.length > 0 && idx <= words.length) {
+                var str = words.slice(0, idx).join(' ');
+                var w = context.measureText(str).width;
+                if (w > fitWidth) {
+                    if (idx == 1) {
+                        idx = 2;
+                    }
+                    context.fillText(words.slice(0, idx - 1).join(' '), x, y + (lineHeight * currentLine));
+                    currentLine++;
+                    words = words.splice(idx - 1);
+                    idx = 1;
+                }
+                else
+                { idx++; }
+            }
+            if (idx > 0)
+                context.fillText(words.join(' '), x, y + (lineHeight * currentLine));
+        }
+        currentLine++;
+    }
 }
 
 
@@ -219,28 +301,39 @@ function createBubble(user, message,id)
         $('<p/>', {
         "class": 'triangle-border top' ,
         id: id,
-        text: message
-        },
-        onclick="replyTo("+id+");").appendTo('.user'+user);
+        text: message,
+        onclick:"replyTo("+id+","+user+");"
+        }
+        ).appendTo('.user'+user);
     }
     else
     {
     $('<p/>', {
         "class": 'triangle-border' ,
         id: id,
-        text: message
-        },
-        onclick="replyTo("+id+");").appendTo('.user'+user);
+        text: message,
+        onclick:"replyTo("+id+","+user+");"
+        }
+        ).appendTo('.user'+user);
+    }
+    console.log('created message: '+message);
+
+
+}
+    // wrapper
+    function replyTo(id,user)
+    {
+        MessageToSend.message = document.getElementById('input_text').value;
+        MessageToSend.id=id;
+        MessageToSend.target=user;
+        if(MessageToSend.message != ""){
+            document.getElementById('input_text').value = "";
+            socket.emit('sendMessage', MessageToSend);
+        }
+
     }
 
-
-}
-
-function replyTo(id)
-{
-
-}
-
+<<<<<<< HEAD
         function createReplyBubble(user_from, user_to, message, id_from, id_to)
         {
 
@@ -271,7 +364,35 @@ function replyTo(id)
             $('#'+id_from).append("<br>");
         }
            
+=======
+    function createReplyBubble(user_from, user_to, message, id_from, id_to)
+    {
+        console.log('In reply bubble');
+        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+
+     if(user_to==3 || user_to==4 || user_to==5){
+            $('<p/>', {
+            "class": 'triangle-border top' ,
+            id: id_to,
+            text: message
+        }).appendTo('#'+id_from);
+>>>>>>> origin/master
         }
+        else
+        {
+        $('<p/>', {
+            "class": 'triangle-border' ,
+            id: id_to,
+            text: message
+        }).appendTo('#'+id_from);
+    }
+
+    }
 
 function fadeChild()
 {
