@@ -365,8 +365,14 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
 
     }
 
+<<<<<<< Updated upstream
     function createReplyBubble(user_from, user_to, message, id_from, id_to)
     {
+=======
+        function createReplyBubble(user_from, user_to, message, id_from, id_to)
+        {
+            console.log('In reply bubble');
+>>>>>>> Stashed changes
 
         if($('#'+id_from).children().length == 0)
         {
@@ -392,6 +398,7 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
         }
     }
            
+<<<<<<< Updated upstream
     function createReplyBubble(user_from, user_to, message, id_from, id_to)
     {
         console.log('In reply bubble');
@@ -416,6 +423,8 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
                 id: id_to,
                 text: message
             }).appendTo('#'+id_from);
+=======
+>>>>>>> Stashed changes
         }
 
     }
