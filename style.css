@@ -9,37 +9,37 @@
     top: 65%;
     left: 33%;
     /* overrides the default color ... still working on it */
-    border:5px solid #9a8f00;
+    border:5px solid #FF0000;
 }
 .user2 > .triangle-border {
   position: absolute;
     top: 65%;
     left: 33%;
-    border:5px solid #003749;
+    border:5px solid #00FF00;
 }
 .user3 > .triangle-border.top {
   position: absolute;
     top: 10%;
     left: 33%;
-    border:5px solid #9f8f10;
+    border:5px solid #0000FF;
 }
 .user4 > .triangle-border.top {
   position: absolute;
     top: 10%;
     left: 33%;
-    border:5px solid #6a8f00;
+    border:5px solid #CCCC00;
 }
 .user5 > .triangle-border.top {
   position: absolute;
     top: 10%;
     left: 33%;
-    border:5px solid #8a5f00;
+    border:5px solid #FF0066;
 }
 .user6 > .triangle-border {
   position: absolute;
     top: 65%;
     left: 33%;
-    border:5px solid #6a3d00;
+    border:5px solid #000000;
 }
 .user7 > .triangle-border {
   position: absolute;
