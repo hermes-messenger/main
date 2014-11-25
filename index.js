@@ -241,6 +241,33 @@ function replyTo(id)
 
 }
 
+        function createReplyBubble(user_from, user_to, message, id_from, id_to)
+        {
+                        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+            
+         if(user_to==3 || user_to==4 || user_to==5){
+                $('<p/>', {
+                "class": 'triangle-border top' ,
+                id: id_to,
+                text: message,
+            }).appendTo('#'+id_from);
+            }
+            else
+            {
+            $('<p/>', {
+                "class": 'triangle-border' ,
+                id: id_to,
+                text: message,
+            }).appendTo('#'+id_from);
+        }
+           
+        }
+
 function fadeChild()
 {
     $(this).fadeTo(0.25,$(this).css('opacity')-0.25);
