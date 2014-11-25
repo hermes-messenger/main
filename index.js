@@ -121,8 +121,11 @@ function drawHistoryLines()
 var MessageToSend = "";
 function sendMessage(event){
 	if (event.keyCode == 13){
-		MessageToSend = document.getElementById('input_text').value;
-		if(MessageToSend != ""){
+		MessageToSend.message = document.getElementById('input_text').value;
+        MessageToSend.id=null;
+        MessageToSend.target = null;
+
+		if(MessageToSend.message != ""){
 			document.getElementById('input_text').value = "";
 			socket.emit('sendMessage', MessageToSend);
 		}
@@ -158,32 +161,50 @@ function onAddMessage(newMessage){
     Messages.unshift(new Message(newMessage.user, newMessage.message,++id));
     if(newMessage.user == name){
         users[0].name = newMessage.user;
-        createBubble(1,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(1,newMessage.message,id);
+        else
+            createReplyBubble(1, newMessage.target, newMessage.message, newMessage.id, id);
     }
     else if(name2 == "" || name2 == newMessage.user){
         users[1].name = newMessage.user;
         name2 = newMessage.user;
-        createBubble(2,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(2,newMessage.message,id);
+        else
+            createReplyBubble(2, newMessage.target, newMessage.message, newMessage.id, id);
     }
     else if(name3 == "" || name3 == newMessage.user){
         users[2].name = newMessage.user;
         name3 = newMessage.user;
-        createBubble(3,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(3,newMessage.message,id);
+        else
+            createReplyBubble(3, newMessage.target, newMessage.message, newMessage.id, id);
     }
     else if(name4 == "" || name4 == newMessage.user){
         users[3].name = newMessage.user;
         name4 = newMessage.user;
-        createBubble(4,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(4,newMessage.message,id);
+        else
+            createReplyBubble(4, newMessage.target, newMessage.message, newMessage.id, id);
     }
     else if(name5 == "" || name5 == newMessage.user){
         users[4].name = newMessage.user;
         name5 = newMessage.user;
-        createBubble(5,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(5,newMessage.message,id);
+        else
+            createReplyBubble(5, newMessage.target, newMessage.message, newMessage.id, id);
     }
     else if(name6 == "" || name6 == newMessage.user){
         users[5].name = newMessage.user;
         name6 = newMessage.user;
-        createBubble(6,newMessage.message,id);
+        if(newMessage.id == null)
+            createBubble(6,newMessage.message,id);
+        else
+            createReplyBubble(6, newMessage.target, newMessage.message, newMessage.id, id);
     }
     mannyDraw();
 
@@ -219,54 +240,65 @@ function createBubble(user, message,id)
         $('<p/>', {
         "class": 'triangle-border top' ,
         id: id,
-        text: message
-        },
-        onclick="replyTo("+id+");").appendTo('.user'+user);
+        text: message,
+        onclick:"replyTo("+id+","+user+");"
+        }
+        ).appendTo('.user'+user);
     }
     else
     {
     $('<p/>', {
         "class": 'triangle-border' ,
         id: id,
-        text: message
-        },
-        onclick="replyTo("+id+");").appendTo('.user'+user);
+        text: message,
+        onclick:"replyTo("+id+","+user+");"
+        }
+        ).appendTo('.user'+user);
+    }
+    console.log('created message: '+message);
+
+
+}
+    // wrapper
+    function replyTo(id,user)
+    {
+        MessageToSend.message = document.getElementById('input_text').value;
+        MessageToSend.id=id;
+        MessageToSend.target=user;
+        if(MessageToSend.message != ""){
+            document.getElementById('input_text').value = "";
+            socket.emit('sendMessage', MessageToSend);
+        }
+
     }
 
+    function createReplyBubble(user_from, user_to, message, id_from, id_to)
+    {
+        console.log('In reply bubble');
+        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
 
-}
-
-function replyTo(id)
-{
-
-}
-
-        function createReplyBubble(user_from, user_to, message, id_from, id_to)
-        {
-                        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            
-         if(user_to==3 || user_to==4 || user_to==5){
-                $('<p/>', {
-                "class": 'triangle-border top' ,
-                id: id_to,
-                text: message,
-            }).appendTo('#'+id_from);
-            }
-            else
-            {
+     if(user_to==3 || user_to==4 || user_to==5){
             $('<p/>', {
-                "class": 'triangle-border' ,
-                id: id_to,
-                text: message,
-            }).appendTo('#'+id_from);
+            "class": 'triangle-border top' ,
+            id: id_to,
+            text: message
+        }).appendTo('#'+id_from);
         }
-           
-        }
+        else
+        {
+        $('<p/>', {
+            "class": 'triangle-border' ,
+            id: id_to,
+            text: message
+        }).appendTo('#'+id_from);
+    }
+
+    }
 
 function fadeChild()
 {
