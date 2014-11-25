@@ -3,6 +3,53 @@
         canvas { display:block; }
 
 
+hr.HRuser1 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #FF0000;
+  height: 5px;
+ }
+
+hr.HRuser2 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #00FF00;
+  height: 5px;
+ }
+
+hr.HRuser3 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #0000FF;
+  height: 5px;
+ }
+
+hr.HRuser4 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #CCCC00;
+  height: 5px;
+ }
+
+hr.HRuser5 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #FF0066;
+  height: 5px;
+ }
+
+hr.HRuser6 {
+   border: 0;
+   width: 90%;
+   color: #f00;
+  background-color: #000000;
+  height: 5px;
+ }
 
 .user1 > .triangle-border {
   position: absolute;

@@ -243,27 +243,32 @@ function replyTo(id)
 
         function createReplyBubble(user_from, user_to, message, id_from, id_to)
         {
-                        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-            $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-            
+
+            if($('#'+id_from).children().length == 0)
+            {
+                $('<hr/>', {
+                    "class": "HRuser"+user_to ,
+            }).appendTo('#'+id_from);
+            }
+
+
+                
          if(user_to==3 || user_to==4 || user_to==5){
-                $('<p/>', {
-                "class": 'triangle-border top' ,
+            $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
+                $('<span/>', {
                 id: id_to,
                 text: message,
             }).appendTo('#'+id_from);
+                $('#'+id_from).append("<br>");
             }
             else
             {
-            $('<p/>', {
-                "class": 'triangle-border' ,
+                $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
+            $('<span/>', {
                 id: id_to,
                 text: message,
             }).appendTo('#'+id_from);
+            $('#'+id_from).append("<br>");
         }
            
         }
