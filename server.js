@@ -24,7 +24,7 @@ for (var dev in ifaces) {
   });
 }
 var port = 3000;
-
+var messageID = 0;
 io.on('connection', function(socket){
 
 	/*
@@ -52,6 +52,7 @@ io.on('connection', function(socket){
 		dataToSend = {
 			user : username,
 			message : newMessage.message,
+            id: messageID++,
             reply : newMessage.id,
             target : newMessage.target
 		}

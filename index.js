@@ -171,59 +171,59 @@ function Message(user, message, id){
 }
 
 var Messages = [];
-var id = 0;
+
 var name2 = "", name3 = "", name4 = "", name5 = "", name6 = "";
 function onAddMessage(newMessage){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-    Messages.unshift(new Message(newMessage.user, newMessage.message,++id));
+    Messages.unshift(new Message(newMessage.user, newMessage.message,newMessage.id));
 
     if(!inShittyMode){
         if(newMessage.user == name){
                 users[0].name = newMessage.user;
             if(newMessage.reply == null)
-                createBubble(1,newMessage.message,id);
+                createBubble(1,newMessage.message,newMessage.id);
             else
-                createReplyBubble(1, newMessage.target, newMessage.message, newMessage.reply, id);
+                createReplyBubble(1, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         else if(name2 == "" || name2 == newMessage.user){
                 users[1].name = newMessage.user;
                 name2 = newMessage.user;
             if(newMessage.reply == null)
-                createBubble(2,newMessage.message,id);
+                createBubble(2,newMessage.message,newMessage.id);
             else
-                createReplyBubble(2, newMessage.target, newMessage.message, newMessage.reply, id);
+                createReplyBubble(2, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         else if(name3 == "" || name3 == newMessage.user){
                 users[2].name = newMessage.user;
                 name3 = newMessage.user;
             if(newMessage.reply == null)
-                createBubble(3,newMessage.message,id);
+                createBubble(3,newMessage.message,newMessage.id);
             else
-                createReplyBubble(3, newMessage.target, newMessage.message, newMessage.reply, id);
+                createReplyBubble(3, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         else if(name4 == "" || name4 == newMessage.user){
             users[3].name = newMessage.user;
             name4 = newMessage.user;
             if(newMessage.reply == null)
-                createBubble(4,newMessage.message,id);
+                createBubble(4,newMessage.message,newMessage.id);
             else
-                createReplyBubble(4, newMessage.target, newMessage.message, newMessage.reply, id);
+                createReplyBubble(4, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         else if(name5 == "" || name5 == newMessage.user){
             users[4].name = newMessage.user;
             name5 = newMessage.user;
             if(newMessage.id == null)
-                createBubble(5,newMessage.message,id);
+                createBubble(5,newMessage.message,newMessage.id);
             else
-                createReplyBubble(5, newMessage.target, newMessage.message, newMessage.id, id);
+                createReplyBubble(5, newMessage.target, newMessage.message, newMessage.id, newMessage.id);
         }
         else if(name6 == "" || name6 == newMessage.user){
             users[5].name = newMessage.user;
             name6 = newMessage.user;
             if(newMessage.reply == null)
-                createBubble(6,newMessage.message,id);
+                createBubble(6,newMessage.message,newMessage.id);
             else
-                createReplyBubble(6, newMessage.target, newMessage.message, newMessage.reply, id);
+                createReplyBubble(6, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         mannyDraw();
     }
