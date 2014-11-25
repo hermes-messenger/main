@@ -58,6 +58,14 @@ function createUsers(){
 
     createUserContainers()
 }
+var colour = new Array;
+colour[0] = null;
+colour[1] = '#FF0000';
+colour[2] = '#00FF00';
+colour[3] = '#0000FF';
+colour[4] = '#CCCC00';
+colour[5] = '#FF0066';
+colour[6] = '#000000';
 
 function drawUsers(){
     ctx.fillStyle = '#FF0000';
@@ -376,7 +384,7 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
             }).appendTo('#'+id_from);
         }     
         if(user_to==3 || user_to==4 || user_to==5){
-            $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
+            $('#'+id_from).append("<span style=\"color: "+colour[user_from]+"\">"+user_from+": "+"</span>");
                 $('<span/>', {
                 id: id_to,
                 text: message,
@@ -384,7 +392,7 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
                 $('#'+id_from).append("<br>");
         }
         else{
-                $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
+                $('#'+id_from).append("<span style=\"color: "+colour[user_from]+"\">"+user_from+": "+"</span>");
             $('<span/>', {
                 id: id_to,
                 text: message,
