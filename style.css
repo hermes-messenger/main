@@ -6,7 +6,7 @@
 hr.HRuser1 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #FF0000;
   background-color: #FF0000;
   height: 5px;
  }
@@ -14,7 +14,7 @@ hr.HRuser1 {
 hr.HRuser2 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #00FF00;
   background-color: #00FF00;
   height: 5px;
  }
@@ -22,7 +22,7 @@ hr.HRuser2 {
 hr.HRuser3 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #0000FF;
   background-color: #0000FF;
   height: 5px;
  }
@@ -30,7 +30,7 @@ hr.HRuser3 {
 hr.HRuser4 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #CCCC00;
   background-color: #CCCC00;
   height: 5px;
  }
@@ -38,7 +38,7 @@ hr.HRuser4 {
 hr.HRuser5 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #FF0066;
   background-color: #FF0066;
   height: 5px;
  }
@@ -46,7 +46,7 @@ hr.HRuser5 {
 hr.HRuser6 {
    border: 0;
    width: 90%;
-   color: #f00;
+   color: #000000;
   background-color: #000000;
   height: 5px;
  }
