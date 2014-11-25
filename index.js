@@ -196,21 +196,21 @@ function onAddMessage(newMessage){
     	for (var i = Messages.length - 1; i >= 0; i--) {
             if(Messages[i].user == name){
                 ctx.beginPath();
-                ctx.rect(0, (.85*canvas.height - i*40)+7, canvas.width, -40);
+                ctx.rect(0, (.90*canvas.height - i*40)+7, canvas.width, -40);
                 ctx.fillStyle = 'green';
                 ctx.fill();
                 ctx.stroke();
                 ctx.fillStyle = 'white';
-                ctx.fillText(Messages[i].message, 10, (.85*canvas.height - i*40));
+                ctx.fillText(Messages[i].message, 10, (.90*canvas.height - i*40));
             }
             else{
                 ctx.beginPath();
-                ctx.rect(0, (.85*canvas.height - i*40)+7, canvas.width, -40);
+                ctx.rect(0, (.90*canvas.height - i*40)+7, canvas.width, -40);
                 ctx.fillStyle = '#aaaaaa';
                 ctx.fill();
                 ctx.stroke();
                 ctx.fillStyle = 'black';
-                ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, (.85*canvas.height - i*40));
+                ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, (.90*canvas.height - i*40));
             }
     	}
     }
@@ -253,6 +253,35 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
     }
 }
 
+    window.addEventListener('resize', onResized, false);
+    function onResized(){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx = canvas.getContext("2d");
+        ctx.font= "30px Verdana";
+        if(inShittyMode){
+            for (var i = Messages.length - 1; i >= 0; i--) {
+                if(Messages[i].user == name){
+                    ctx.beginPath();
+                    ctx.rect(0, (.90*canvas.height - i*40)+7, canvas.width, -40);
+                    ctx.fillStyle = 'green';
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(Messages[i].message, 10, (.90*canvas.height - i*40));
+                }
+                else{
+                    ctx.beginPath();
+                    ctx.rect(0, (.90*canvas.height - i*40)+7, canvas.width, -40);
+                    ctx.fillStyle = '#aaaaaa';
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(Messages[i].user + ": " + Messages[i].message, 10, (.90*canvas.height - i*40));
+                }
+            }
+        }
+    }
 
 // Initialize Events.
         function LoadEvents() {
