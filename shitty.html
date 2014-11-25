@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Hermes' Messenger</title>
+    <title>Herme's Messenger</title>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -27,6 +27,7 @@
         var canvas = document.getElementById("messenger");
         setCanvas(canvas);
         createUsers();
+        setInShittyMode();
     </script>
     <div id="input_bar">
     <input id="input_text" type="text" onkeypress="sendMessage(event);">
