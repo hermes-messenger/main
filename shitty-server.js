@@ -39,7 +39,6 @@ io.on('connection', function(socket){
 
 	socket.broadcast.emit("newUser", null);	// Sends to all other users connected to the server
 
-
 	/*
 		Declare your own custom event handlers here
 	*/
@@ -52,8 +51,11 @@ io.on('connection', function(socket){
 	socket.on('sendMessage', function(newMessage){
 		dataToSend = {
 			user : username,
-			message : newMessage
+			message : newMessage.message,
+            reply : newMessage.id,
+            target : newMessage.target
 		}
+        console.log('Sending '+newMessage.message);
 		socket.emit('addMessage', dataToSend);
 		socket.broadcast.emit('addMessage', dataToSend);
 	});

@@ -56,10 +56,7 @@ function createUsers(){
     users[5].xpos =                  0;
     users[5].ypos = canvas.height - 10;
 
-createUserContainers()
-
-
-
+    createUserContainers()
 }
 
 function drawUsers(){
@@ -91,6 +88,7 @@ function mannyDraw(){
     drawUsers();
    // drawHistoryLines();
 }
+
 function drawHistoryLines()
 {
     if(!Messages[0]) {
@@ -322,38 +320,36 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
     });  
         }
 
-function createBubble(user, message,id)
-{
-
-    $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
-    $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-    $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-    $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
-    $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-    $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-
-    if(user==3 || user==4 || user==5){
-        $('<p/>', {
-        "class": 'triangle-border top' ,
-        id: id,
-        text: message,
-        onclick:"replyTo("+id+","+user+");"
-        }
-        ).appendTo('.user'+user);
-    }
-    else
+    function createBubble(user, message,id)
     {
-    $('<p/>', {
-        "class": 'triangle-border' ,
-        id: id,
-        text: message,
-        onclick:"replyTo("+id+","+user+");"
+        $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+        $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+
+        if(user==3 || user==4 || user==5){
+            $('<p/>', {
+            "class": 'triangle-border top' ,
+            id: id,
+            text: message,
+            onclick:"replyTo("+id+","+user+");"
+            }
+            ).appendTo('.user'+user);
         }
-        ).appendTo('.user'+user);
+        else
+        {
+        $('<p/>', {
+            "class": 'triangle-border' ,
+            id: id,
+            text: message,
+            onclick:"replyTo("+id+","+user+");"
+            }
+            ).appendTo('.user'+user);
+        }
     }
 
-
-}
     // wrapper
     function replyTo(id,user)
     {
@@ -369,29 +365,24 @@ function createBubble(user, message,id)
 
     }
 
-<<<<<<< HEAD
-        function createReplyBubble(user_from, user_to, message, id_from, id_to)
+    function createReplyBubble(user_from, user_to, message, id_from, id_to)
+    {
+
+        if($('#'+id_from).children().length == 0)
         {
-
-            if($('#'+id_from).children().length == 0)
-            {
-                $('<hr/>', {
-                    "class": "HRuser"+user_to ,
+            $('<hr/>', {
+                "class": "HRuser"+user_to ,
             }).appendTo('#'+id_from);
-            }
-
-
-                
-         if(user_to==3 || user_to==4 || user_to==5){
+        }     
+        if(user_to==3 || user_to==4 || user_to==5){
             $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
                 $('<span/>', {
                 id: id_to,
                 text: message,
             }).appendTo('#'+id_from);
                 $('#'+id_from).append("<br>");
-            }
-            else
-            {
+        }
+        else{
                 $('#'+id_from).append("<span style=\"color: #ff0000\">"+user_from+": "+"</span>");
             $('<span/>', {
                 id: id_to,
@@ -399,8 +390,8 @@ function createBubble(user, message,id)
             }).appendTo('#'+id_from);
             $('#'+id_from).append("<br>");
         }
+    }
            
-=======
     function createReplyBubble(user_from, user_to, message, id_from, id_to)
     {
         console.log('In reply bubble');
@@ -411,22 +402,21 @@ function createBubble(user, message,id)
         $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
         $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
 
-     if(user_to==3 || user_to==4 || user_to==5){
+        if(user_to==3 || user_to==4 || user_to==5){
+                $('<p/>', {
+                "class": 'triangle-border top' ,
+                id: id_to,
+                text: message
+            }).appendTo('#'+id_from);
+            }
+            else
+            {
             $('<p/>', {
-            "class": 'triangle-border top' ,
-            id: id_to,
-            text: message
-        }).appendTo('#'+id_from);
->>>>>>> origin/master
+                "class": 'triangle-border' ,
+                id: id_to,
+                text: message
+            }).appendTo('#'+id_from);
         }
-        else
-        {
-        $('<p/>', {
-            "class": 'triangle-border' ,
-            id: id_to,
-            text: message
-        }).appendTo('#'+id_from);
-    }
 
     }
 
