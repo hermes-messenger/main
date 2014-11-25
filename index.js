@@ -109,16 +109,12 @@ function drawHistoryLines()
     ctx.moveTo(offset.left, offset.top);
     for(var m in Messages)
     {
-
-        console.log(m+','+id+','+Messages[m].element);
-
         el = $("#"+ Messages[m].element);
         offset = el.offset();
         ctx.lineTo(offset.left, offset.top);
         ctx.moveTo(offset.left, offset.top);
     }
     ctx.stroke();
-    console.log('drawing');
 }
 
 
@@ -211,41 +207,13 @@ function onAddMessage(newMessage){
 
         function createBubble(user, message,id)
         {
-            switch(user) {
-                case 1:
-                    $('.user'+user).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
-                    //$('.user'+user).children().each(fadeChild);
-                    break;
-                case 2:
-                    $('.user'+user).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-                    //$('.user'+user).children().each(fadeChild);
 
-                    break;
-                case 3:
-                    $('.user'+user).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-                   // $('.user'+user).children().each(fadeChild);
-
-                    break;
-                case 4:
-                    $('.user'+user).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
-                   // $('.user'+user).children().each(fadeChild);
-
-                    break;
-                case 5:
-                    $('.user'+user).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
-                   // $('.user'+user).children().each(fadeChild);
-
-                    break;
-                case 6:
-                    $('.user'+user).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-                  //  $('.user'+user).children().each(fadeChild);
-
-                    break;
-                default:
-                     $('.user'+user).children().animate({left: '+='+ 40, top: '+='+40, opacity:"-=0.2"},'fast');
-                   //  $('.user'+user).children().each(fadeChild);
-
-            }
+            $('.user'+1).children().animate({left: '-='+ 0, top: '-='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+2).children().animate({left: '-='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+3).children().animate({left: '-='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
+            $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
 
             if(user==3 || user==4 || user==5){
                 $('<p/>', {
