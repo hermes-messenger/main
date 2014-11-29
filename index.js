@@ -20,6 +20,7 @@ function User() {
     this.name="";
     this.xpos=-1;
     this.ypos=-1;
+	this.color="#0";
 
 }
 
@@ -55,35 +56,35 @@ function createUsers(){
     users[4].ypos =                  0;
     users[5].xpos =                  0;
     users[5].ypos = canvas.height - 10;
+	users[0].color = '#FF0000';
+	users[1].color = '#00FF00';
+	users[2].color = '#0000FF';
+	users[3].color = '#CCCC00';
+	users[4].color = '#FF0066';
+	users[5].color = '#000000';
 
     createUserContainers()
 }
-var colour = new Array;
-colour[0] = null;
-colour[1] = '#FF0000';
-colour[2] = '#00FF00';
-colour[3] = '#0000FF';
-colour[4] = '#CCCC00';
-colour[5] = '#FF0066';
-colour[6] = '#000000';
+
 
 function drawUsers(){
-    ctx.fillStyle = '#FF0000';
+    ctx.fillStyle = users[0].color;
     ctx.fillText(users[0].name, users[0].xpos-30, users[0].ypos-40);
-    ctx.fillStyle = '#00FF00';
+    ctx.fillStyle = users[1].color;
     ctx.fillText(users[1].name, users[1].xpos-130, users[1].ypos-40);
-    ctx.fillStyle = '#0000FF';
+    ctx.fillStyle = users[2].color;
     ctx.fillText(users[2].name, users[2].xpos-130, users[2].ypos+30);
-    ctx.fillStyle = '#CCCC00';
+    ctx.fillStyle = users[3].color;
     ctx.fillText(users[3].name, users[3].xpos -50, users[3].ypos+30);
-    ctx.fillStyle = '#FF0066';
+    ctx.fillStyle = users[4].color;
     ctx.fillText(users[4].name, users[4].xpos, users[4].ypos+30);
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = users[5].color;
     ctx.fillText(users[5].name, users[5].xpos, users[5].ypos-40);
 }
 
 function mannyDraw(){
 	ctx.beginPath();
+    ctx.lineWidth=5;
     ctx.moveTo(canvas.width/4, 0);
     ctx.lineTo(canvas.width*3/4,canvas.height);
     
@@ -93,7 +94,15 @@ function mannyDraw(){
     ctx.moveTo(canvas.width*3/4, 0);
     ctx.lineTo(canvas.width/4,canvas.height);
     ctx.stroke();
+    /*ctx.beginPath();
+    ctx.lineWidth=12;
+    ctx.moveTo(canvas.width/2,canvas.height/2);
+    ctx.lineTo(canvas.width/4,canvas.height);
+    ctx.moveTo(canvas.width/2,canvas.height/2);
+    ctx.lineTo(canvas.width*3/4,canvas.height);
+    ctx.stroke();*/
     drawUsers();
+
    // drawHistoryLines();
 }
 
@@ -336,7 +345,7 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
         $('.user'+4).children().animate({left: '+='+ 0, top: '+='+ 40, opacity:"-=0.2"},'fast');
         $('.user'+5).children().animate({left: '+='+ 40, top: '+='+ 40, opacity:"-=0.2"},'fast');
         $('.user'+6).children().animate({left: '+='+ 40, top: '-='+ 40, opacity:"-=0.2"},'fast');
-
+			
         if(user==3 || user==4 || user==5){
             $('<p/>', {
             "class": 'triangle-border top' ,
@@ -345,6 +354,8 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
             onclick:"replyTo("+id+","+user+");"
             }
             ).appendTo('.user'+user);
+			
+			
         }
         else
         {
@@ -356,6 +367,11 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
             }
             ).appendTo('.user'+user);
         }
+							$('<hr/>', {
+							id: "HRID"+id,
+					"class": 'HRuser'+user,
+            }).appendTo('#'+id);
+			$("html, body").animate({ scrollTop: $('#'+id).offset().top }, 1000);
     }
 
     // wrapper
@@ -373,32 +389,32 @@ function printAtWordWrap(context, text, x, y, lineHeight, fitWidth) {
 
     }
 
-        function createReplyBubble(user_from, user_to, message, id_from, id_to)
+        function createReplyBubble(user_from, user_to, message, id_parent, id_new)
         {
             console.log('In reply bubble');
 
-        if($('#'+id_from).children().length == 0)
+        if($('#HRID'+id_parent).css('visibility')=="hidden")
         {
-            $('<hr/>', {
-                "class": "HRuser"+user_to ,
-            }).appendTo('#'+id_from);
+            $('#HRID'+id_parent).css("visibility", 'visible');
         }     
         if(user_to==3 || user_to==4 || user_to==5){
-            $('#'+id_from).append("<span style=\"color: "+colour[user_from]+"\">"+user_from+": "+"</span>");
+            $('#'+id_parent).append("<span style=\"color: "+users[user_from-1].color+"\">"+users[user_from-1].name+": "+"</span>");
                 $('<span/>', {
-                id: id_to,
+                id: id_new,
                 text: message,
-            }).appendTo('#'+id_from);
-                $('#'+id_from).append("<br>");
+            }).appendTo('#'+id_parent);
+                $('#'+id_parent).append("<br>");
         }
         else{
-                $('#'+id_from).append("<span style=\"color: "+colour[user_from]+"\">"+user_from+": "+"</span>");
+                $('#'+id_parent).append("<span style=\"color: "+users[user_from-1].color+"\">"+users[user_from-1].name+": "+"</span>");
             $('<span/>', {
-                id: id_to,
+                id: id_new,
                 text: message,
-            }).appendTo('#'+id_from);
-            $('#'+id_from).append("<br>");
+            }).appendTo('#'+id_parent);
+            $('#'+id_parent).append("<br>");
         }
+		$('#'+id_parent).appendTo($('#'+id_parent).parent())
+		$("html, body").animate({ scrollTop: $('#'+id_new).offset().top }, 1000);
     }
            
 

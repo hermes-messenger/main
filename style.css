@@ -8,6 +8,7 @@ hr.HRuser1 {
    width: 90%;
    color: #FF0000;
   background-color: #FF0000;
+  visibility: hidden;
   height: 5px;
  }
 
@@ -16,6 +17,7 @@ hr.HRuser2 {
    width: 90%;
    color: #00FF00;
   background-color: #00FF00;
+  visibility: hidden;
   height: 5px;
  }
 
@@ -24,6 +26,7 @@ hr.HRuser3 {
    width: 90%;
    color: #0000FF;
   background-color: #0000FF;
+  visibility: hidden;
   height: 5px;
  }
 
@@ -32,6 +35,7 @@ hr.HRuser4 {
    width: 90%;
    color: #CCCC00;
   background-color: #CCCC00;
+  visibility: hidden;
   height: 5px;
  }
 
@@ -40,6 +44,7 @@ hr.HRuser5 {
    width: 90%;
    color: #FF0066;
   background-color: #FF0066;
+  visibility: hidden;
   height: 5px;
  }
 
@@ -48,6 +53,7 @@ hr.HRuser6 {
    width: 90%;
    color: #000000;
   background-color: #000000;
+  visibility: hidden;
   height: 5px;
  }
 
