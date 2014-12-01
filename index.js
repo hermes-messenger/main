@@ -221,10 +221,10 @@ function onAddMessage(newMessage){
         else if(name5 == "" || name5 == newMessage.user){
             users[4].name = newMessage.user;
             name5 = newMessage.user;
-            if(newMessage.id == null)
+            if(newMessage.reply == null)
                 createBubble(5,newMessage.message,newMessage.id);
             else
-                createReplyBubble(5, newMessage.target, newMessage.message, newMessage.id, newMessage.id);
+                createReplyBubble(5, newMessage.target, newMessage.message, newMessage.reply, newMessage.id);
         }
         else if(name6 == "" || name6 == newMessage.user){
             users[5].name = newMessage.user;
