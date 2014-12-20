@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hermes Messenger 3</title>
+	<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> !-->
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> 
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script> 
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<script src="jquery/bootbox.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
+  </head>
+  <body>
+    <ul class="list-group" id="messages"></ul>
+	<span id="statusBox" class="status label-default"></span>
+    <form action="">
+      <div class="input-group inputchat">
+		<input id="m" type="text" class="form-control ui-autocomplete-input" autocomplete="off">
+		<div class="input-group-btn">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">Send</button>
+			</span>
+			<!-- Button and dropdown menu -->
+		</div>
+	  </div>
+    </form>
+		<script src="index.js"></script>
+		<script src="client.js"></script>
+
+  </body>
+</html>
