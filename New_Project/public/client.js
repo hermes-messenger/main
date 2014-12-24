@@ -22,8 +22,9 @@
 		});
 			function promptName(fromServer)
 				{
+					var acceptPattern=/^[a-zA-Z0-9]+$/;
 					bootbox.prompt(fromServer, function(result) {                
-					  if (result === null) {
+					  if (result === null || result == "" || result.match(acceptPattern) === null) {
 						myMe=new me("anon","#0");
 						socket.emit('initUser', myMe);                              
 					  } else {
@@ -63,38 +64,35 @@
 		socket.on("isTyping",function(PersonTypingObj){
 		if(PersonTypingObj.isTyping)
 		{
-			if($("#"+PersonTypingObj.person+"").length === 0)
+			if($("#typing_"+PersonTypingObj.person+"").length === 0)
 			{
-				$("body").append("<li id='"+ PersonTypingObj.person +"'><span class='text-muted'><small><i class='fa fa-keyboard-o'></i>" + PersonTypingObj.person + " is typing.</small></li>");
+				$("body").append("<li id='typing_"+ PersonTypingObj.person +"'><span class='text-muted'><small><i class='fa fa-keyboard-o'></i>" + PersonTypingObj.person + " is typing.</small></li>");
 				timeout = setTimeout(timeoutFunction, 500);
 			}
-			else{
-			$("#"+PersonTypingObj.person+"").remove();
+		}else{
+			$("#typing_"+PersonTypingObj.person+"").remove();
 			}
-		}
 		});
 		
 		// You sending message
 		$('form').submit(function(){
-			sendToAll();
+			if(!($("#m").val().length === 0)){
+			sendToAll();}
 			return false;
 		});
 		
 		function sendToAll(){
-		if($("#m").val() != ""){
-				socket.emit('chat message', visual_sendMessage("all"));}
+		
+				socket.emit('chat message', visual_sendMessage("all"));
 		}
 		
-		function sendToUser(){
-		if($("#m").val() != "")
-		{
-		console.log("executed");
-			$("#messages").click(function(e){
-			console.log(e.target.id);
-			socket.emit('chat message', visual_sendMessage(e.target.id));
-			});
-			
-			}
+		function sendToUser(e){
+		// [quick & dirty] I dislike how dirty this check is.. but I dont know how else to make children elements un-clickable
+		if(($("#m").val().length === 0) || $("#"+e.target.id+"> span").text() !== "?" ){return;}
+		//console.log(e.target.id);
+		//e.stopPropagation();
+		//console.log(e.isPropagationStopped())
+		socket.emit('chat message', visual_sendMessage(e.target.id));
 		}
 		
 		socket.on('userC', function(text){
@@ -105,7 +103,7 @@
 		});
 		
 		
-		socket.on('greetUser',function(greet){
+		socket.on('greetUser',function(greet){	
 			visual_greetUser(greet);
 		});
 		

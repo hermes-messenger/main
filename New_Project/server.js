@@ -80,8 +80,20 @@ io.on('connection', function(socket){
 //end of connection socket function
 });
 
+var os=require('os');
+var ifaces=os.networkInterfaces();
+var ip = "";
+for (var dev in ifaces) {
+  ifaces[dev].forEach(function(details){
+    if (details.family=='IPv4' && ip == "") {
+      ip = details.address;
+    }
+  });
+}
+
 http.listen(3000, function(){
-  console.log('listening on localhost:3000');
+	console.log("listening on",ip?ip:"localhost","port " + 3000);
+  //console.log('listening on localhost:3000');
 });
 
 
@@ -105,15 +117,18 @@ function DictionaryDelete(key,dict) {
 	  
 /* On Initialize User */
 function initUser(person,id){
+	if(typeof person !== "undefined" && person.name != ''){
 		clients_stored[id]=person;
 		console.log('User %s Initialized with the name of %s\nTotal number of users:%s\n',id,person.name,Object.keys(clients_stored).length);
 		io.to(room).emit('greetUser',"Welcome "+person.name);
 		io.to(room).emit('serverStatus',person.name +' Entered');
 		//var client_socket = io.sockets.connected[clientId];//Do whatever you want with this
+		}
 }
 	  
 /* On Chat Message Function */
 function chatMessage(message){
+if(isValid(message)){
     console.log('from:%s\nto:%s\ntype:%s\nmessage: %s\n', message.from_user,message.to_id,message.type,message.msg);
 	message.from_id=global_id_counter++;
 	io.to(room).emit('chat message', message);
@@ -121,10 +136,35 @@ function chatMessage(message){
 	console.log('created and emmited its from_id as: %s\nTotal messages is %s\n',message.from_id,messages_stored.length);
 	//for pm?: socket.to(room).emit('id',socket.id);
 	}
+	}
 	
 /* On Typing */
 function typing(data,id){
 if (typeof clients_stored[id] !== "undefined")
 		io.sockets.in(room).emit("isTyping", {isTyping: data, person: clients_stored[id].name});
 		//check out socket.room soon
+}
+
+/* Valid Check */
+function isValid(message)
+{
+	if (typeof(message) == 'undefined')
+	{
+		console.log('Object error... Skipping');
+		return false;
+	}
+	else if(message.msg == "")
+	{
+		console.log('Message error... Skipping');
+		return false;
+	}
+	else if(message.from_user == "" || message.to_id == "" || message.type == "")
+	{
+		console.log('Meta error... Skipping');
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

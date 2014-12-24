@@ -19,6 +19,9 @@ function visual_sendMessage(to)
 }
 
 function visual_getMessage(message, opTypes){
+//if(($("#m").val().length === 0)){
+//return
+//}
 	if(message.to_id != "all"){
 
 	$('#'+message.to_id).append($('<li>').attr({
@@ -36,6 +39,7 @@ function visual_getMessage(message, opTypes){
 	$('#'+message.from_id).prepend($('<span>').attr({'class':'badge'}).text(opTypes[message.type].visual));
 	}
 	if(opTypes[message.type].reply){
+	console.log("just made " +message.from_id+ " replyable");
 	$('#'+message.from_id).bind('click',sendToUser);
 	}
 }
