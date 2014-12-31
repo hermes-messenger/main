@@ -2,8 +2,44 @@
 	I.E. Indepednent from  io.socket 
 */
 
-/* Non-Visual Functions */
 
+/* Non-Visual Functions */
+var lastScrollTop = 0;
+$(window).scroll(function(event){
+   var st = $(this).scrollTop();
+   var chatbox = $("#inputbox");
+   if (chatbox.position().top >= 0 && chatbox.position().top <= $(window).height()) //in viewport
+   {
+	   if (st > lastScrollTop){
+		   // downscroll code
+		   chatbox.animate({"top": "10%"},{queue:false});
+		   //chatbox.css('top', "10%");
+		   //chatbox.animate({ "top": "-="+1 }, {duration: 5}, "fast" );
+	   } else {
+		  // upscroll code
+		  chatbox.animate({"top": "90%"},{queue:false});
+		  //chatbox.css('top', '90%');
+		  //chatbox.animate({ "top": "+="+1 }, {duration: 5}, "fast" );
+	   }
+   }
+   
+  
+   lastScrollTop = st;
+});
+
+$( "body" ).keypress(function(e) {
+  
+  if (e.which != 13 && !Prompted)
+  {
+	$("#m").focus();
+	//console.log( "Showing input: " + String.fromCharCode(e.which));
+	$("#inputbox").animate({opacity: 1},{queue:false});
+  }
+  else {
+  //console.log( "hiding input" );
+  $("#inputbox").animate({opacity: 0},{queue:false});
+  }
+});
 
 /* Visual Functions */
 function visual_greetUser(greet)
@@ -42,6 +78,23 @@ function visual_getMessage(message, opTypes){
 	console.log("just made " +message.from_id+ " replyable");
 	$('#'+message.from_id).bind('click',sendToUser);
 	}
+	
+	//Make Better - use to use $(document).height
+	if($(window).scrollTop() + $(window).height() < $('#'+message.from_id).position().top)
+   {
+	$('#newMsgBox').text("Click here for new unread message");
+	$('#newMsgBox').fadeIn('slow');
+	
+	$('#newMsgBox').click(function(){
+	$('html, body').animate({scrollTop: $('#'+message.from_id).offset().top},800);
+	$(this).fadeOut('slow');
+	});
+	
+	//alert("Warning, New messages");
+   }else{
+   $('html, body').animate({scrollTop: $('#'+message.from_id).offset().top},800);
+   }
+	
 }
 
 function visual_userTyping(message){

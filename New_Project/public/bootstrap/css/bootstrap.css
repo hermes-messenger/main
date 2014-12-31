@@ -1,3 +1,50 @@
+/* Custom Styles */
+.fix_inputchat {
+top: 5%;
+position: fixed;
+}
+
+.inputchat {
+top: 90%;
+position: fixed;
+}
+
+.status {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: normal;
+  word-wrap:break-word;
+  vertical-align: baseline;
+  border-radius: .25em;
+  position:fixed;
+  top: 10%;
+  left: 90%;
+  width: 9.2%; 
+}
+
+.status_newMsg {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: normal;
+  word-wrap:break-word;
+  vertical-align: baseline;
+  border-radius: .25em;
+  position:fixed;
+  top: 85%;
+  left: 90%;
+  width: 9.2%; 
+}
+
 /*!
  * Bootstrap v3.3.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -3484,15 +3531,11 @@ tbody.collapse.in {
   pointer-events: none;
 }
 .input-group {
-  position: relative;
+ /* position: relative;*/
   display: table;
   border-collapse: separate;
 }
 
-.inputchat {
-top: 90%;
-position: fixed;
-}
 
 .input-group[class*="col-"] {
   float: none;
@@ -4526,23 +4569,6 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border-radius: .25em;
 }
 
-.status {
-  display: inline;
-  padding: .2em .6em .3em;
-  font-size: 75%;
-  font-weight: bold;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  white-space: normal;
-  word-wrap:break-word;
-  vertical-align: baseline;
-  border-radius: .25em;
-  position:fixed;
-  top: 10%;
-  left: 90%;
-  width: 9.2%; 
-}
 
 
 a.label:hover,

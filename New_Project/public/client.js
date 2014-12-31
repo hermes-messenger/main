@@ -7,10 +7,12 @@
 			  
 		var myMe={};
 		var myOpTypes=[{}];
+		var Prompted = false;
 
 		// inits
 		$(function() {
 			$('#statusBox').hide();
+			$('#newMsgBox').hide();
 			socket.on('ServerMsg', promptName);
 			
 			/*
@@ -22,14 +24,17 @@
 		});
 			function promptName(fromServer)
 				{
+					Prompted=true;
 					var acceptPattern=/^[a-zA-Z0-9]+$/;
 					bootbox.prompt(fromServer, function(result) {                
 					  if (result === null || result == "" || result.match(acceptPattern) === null) {
 						myMe=new me("anon","#0");
-						socket.emit('initUser', myMe);                              
+						socket.emit('initUser', myMe);
+							Prompted=false;
 					  } else {
 						myMe=new me(result,"#0");
-						socket.emit('initUser', myMe);                          
+						socket.emit('initUser', myMe); 
+							Prompted=false;
 					  }
 					});
 				} 
