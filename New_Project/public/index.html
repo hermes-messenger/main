@@ -12,22 +12,40 @@
 	
   </head>
   <body>
+  <!-- The hidden stuff !-->
     <ul class="list-group" id="messages"></ul>
 	<span id="statusBox" class="status label-default"></span>
 	<span id="newMsgBox" class="status_newMsg label-info"></span>
-    <form action="">
-      <div id="inputbox" class="input-group inputchat">
+   
+   <!-- The Input stuff !-->
+	<form action="">
+	  <div id="inputbox" class="input-group inputchat">
+		
 		<input id="m" type="text" class="form-control ui-autocomplete-input" autocomplete="off">
-		<div class="input-group-btn">
+		
+		
+		<div id='dropdownbox' class="input-group-btn dropup">
+        		<button id="submit" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Send<span class="caret"></span></button>
+        		<ul id="dropdownbox_data" class="dropdown-menu" role="menu">
+          			<!-- 
+					Dynamically populated by server
+					Format: <li><a href="#">Action</a></li>
+					!-->
+        		</ul>
+      	</div>
+		
+		<!--<div class="input-group-btn">
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button">Send</button>
 			</span>
-			<!-- Button and dropdown menu -->
-		</div>
+		</div> !-->
+		
+		
 	  </div>
     </form>
+	
+	<!-- The Javascript Stuff !-->
 		<script src="index.js"></script>
 		<script src="client.js"></script>
-
   </body>
 </html>
